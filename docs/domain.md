@@ -1,85 +1,26 @@
-# Zombie Apocalypse Survival Camp Domain
+# Zombie Apocalypse Survival Domain
 
-## 1. Domain Overview
+This domain models a group of survivors trying to survive a zombie apocalypse.
 
-This domain models a survival camp during a zombie apocalypse.
+Each survivor has:
+- a unique id
+- a name
+- a health level
 
-The camp manages:
-- Survivors
-- Food supplies
-- Dangerous missions
-- Zombie attacks
+Survivors can be attacked by zombies which reduces their health.
 
-The Domain Layer enforces business rules and emits Domain Events.
-It does NOT:
-- Log to console
-- Send notifications
-- Persist data
-- Handle UI
+The camp also manages food supplies. When food drops below a safe threshold,
+a "FoodLow" event is emitted.
 
-Side effects are handled via the Observer Pattern.
+Domain events are emitted whenever important actions occur, such as:
 
----
+- SurvivorCreated
+- ZombieAttack
+- FoodLow
 
-## 2. Ubiquitous Language
+Observers listen to these events and react accordingly. In this project,
+observers simulate infrastructure systems such as sending emails or saving
+data to a database.
 
-| Term | Meaning |
-|------|--------|
-| Camp | Group of survivors |
-| Survivor | Person inside the camp |
-| FoodStock | Total food available |
-| Mission | Risky operation outside camp |
-| Domain Event | Event emitted after state change |
-
----
-
-## 3. Business Rules
-
-### Rule 1 — Food Cannot Be Negative
-FoodStock must always be ≥ 0.
-
-If food would drop below zero → throw error.
-
----
-
-### Rule 2 — Mission Requires Minimum Survivors
-A mission requires at least 2 alive survivors.
-
----
-
-### Rule 3 — Survivor Death Is Final
-If health reaches 0:
-- Survivor becomes dead
-- Cannot participate in missions
-
----
-
-### Rule 4 — Low Food Warning
-If food drops below 5 units:
-- Emit FoodLowEvent
-
----
-
-## 4. Domain Events
-
-- FoodLowEvent
-- MissionStartedEvent
-- SurvivorDiedEvent
-
----
-
-## 5. Architecture
-
-Domain Layer:
-- SurvivalCamp (Aggregate)
-- Survivor (Entity)
-- Branded types
-- Smart constructors
-- Domain events
-
-Observers:
-- Logging system
-- Emergency alert
-- Mock zombie alarm
-
-This ensures separation of concerns.
+The system uses smart constructors and branded types to prevent invalid data,
+ensuring the domain remains consistent and safe.

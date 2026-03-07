@@ -1,20 +1,21 @@
 import { SurvivorId, FoodStock } from "../survivor/types"
 
+export type SurvivorCreatedEvent = {
+	type: "SurvivorCreated"
+	survivorId: SurvivorId
+}
+
+export type ZombieAttackEvent = {
+	type: "ZombieAttack"
+	survivorId: SurvivorId
+}
+
 export type FoodLowEvent = {
 	type: "FoodLow"
 	level: FoodStock
 }
 
-export type SurvivorDiedEvent = {
-	type: "SurvivorDied"
-	survivorId: SurvivorId
-}
-
-export type MissionStartedEvent = {
-	type: "MissionStarted"
-}
-
 export type DomainEvent =
+	| SurvivorCreatedEvent
+	| ZombieAttackEvent
 	| FoodLowEvent
-	| SurvivorDiedEvent
-	| MissionStartedEvent

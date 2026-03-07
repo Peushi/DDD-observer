@@ -1,5 +1,7 @@
-export type SurvivorId = string & { readonly __brand: "SurvivorId" }
-export type Health = number & { readonly __brand: "Health" }
-export type FoodStock = number & { readonly __brand: "FoodStock" }
+export type Brand<T, B> = T & { readonly __brand: B }
 
-export type SurvivorName = "Lisa" | "Meli" | "Sana" | "Liz" | "Jess" | "Luc" | "Brad"
+export type SurvivorId = Brand<string, "SurvivorId">
+export type SurvivorName = Brand<string, "SurvivorName">
+export type Health = Brand<number, "Health">
+export type FoodStock = Brand<number, "FoodStock">
+export type Damage = Brand<number, "Damage">
